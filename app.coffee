@@ -4,7 +4,7 @@ Module dependencies.
 ###
 express = require("express")
 routes = require("./routes")
-user = require("./routes/user")
+story = require("./routes/story")
 http = require("http")
 path = require("path")
 app = express()
@@ -17,7 +17,8 @@ app.set "view engine", "jade"
 app.use express.compress()
 app.use express.favicon()
 app.use express.logger("dev")
-app.use express.bodyParser();
+app.use express.json()
+app.use express.urlencoded()
 app.use express.methodOverride()
 app.use express.cookieParser("asdgdgsewb233ssdf")
 app.use express.session()
@@ -30,6 +31,8 @@ app.use express.static(path.join(__dirname, "assets"))
 # development only
 app.use express.errorHandler()  if "development" is app.get("env")
 app.get "/", routes.index
+app.get "/story/new", story.new
+app.post "/story/create", story.create
 
 http.createServer(app).listen app.get("port"), ->
   console.log "Express server listening on port " + app.get("port")

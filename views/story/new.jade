@@ -1,0 +1,11 @@
+extends ../layout
+
+block content
+	h1 上传
+	form(enctype="multipart/form-data", action="/story/create", method="post")
+		p
+			音频文件
+			small（仅支持mp3)
+			input(type="file", name="file")
+			input(type="hidden", name="_csrf", value=token)
+		input(type="submit", value="提交")
