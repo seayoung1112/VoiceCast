@@ -4,9 +4,12 @@ html
 		title= title
 		script(src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")
 		!= js('app.js')
+		!= js('jquery.form.js')
+		!= js('circle.player.js')
+		!= css('jplayer/circle.player.css')
 		!= css('bootstrap.css')
 		!= css('bootstrap-theme.css')
 		!= css('layout.css')
+
 	body
-		.container
-			block content
+		block content
