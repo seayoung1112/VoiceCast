@@ -2,14 +2,9 @@
 ###
 Module dependencies.
 ###
-express = require "express"
-routes = require "./routes"
-story = require "./routes/story"
-http = require "http"
-path = require "path"
-fs = require "fs"
-querystring = require "querystring"
 mongoose = require "mongoose"
+fs = require "fs"
+path = require "path"
 
 # init db
 mongoose.connect("mongodb://localhost/voicecast")
@@ -18,6 +13,14 @@ mongoose.connect("mongodb://localhost/voicecast")
 model_path = __dirname + '/models'
 for model_file in fs.readdirSync model_path
 	require path.join(model_path, model_file)
+
+
+express = require "express"
+routes = require "./routes"
+story = require "./routes/story"
+http = require "http"
+querystring = require "querystring"
+
 
 app = express()
 

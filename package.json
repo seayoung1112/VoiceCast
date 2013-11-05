@@ -11,7 +11,7 @@
     "stylus": "*",
     "connect-assets": "*",
     "coffee-script": "*",
-    "busboy": "*",
+    "multiparty": "*",
     "mongoose": "*"
   }
 }

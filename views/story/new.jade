@@ -1,17 +1,43 @@
 extends ../layout
 
-block content
-	//- :coffeescript
-	//- 	$ ->
-	//- 		$('form').ajaxForm (res) ->
-	//- 			$('#result').html res
+block meta
+	!= js('jquery.form.js')
+	!= js('jquery.validate.js')
 
-	h1 上传
-	form(action="/story/create/?#{csrf_qs}", method="post", enctype="multipart/form-data")
-		p
-			音频文件
-			small（仅支持mp3)
-			input(type="file", name="file")
-			input(type="hidden", name="test", value="token")
-		input(type="submit", value="提交", id="tt")
-	#result
+block content
+	:coffeescript
+		$ ->
+			$('form').validate
+				submitHandler: (form) ->
+					$('.progress').removeClass('hidden')
+					$('#submit').prop('disabled', true)
+					$(form).ajaxSubmit
+						success: (res, statusText, xhr, $form) ->
+							$('#result').removeClass('hidden').prepend "<div class='alert alert-success'>文件 #{res} 成功上传!</div"
+							$('.progress').addClass('hidden')
+							$('#submit').prop('disabled', false)
+							$('.progress-bar').width('0%')
+						uploadProgress: (event, position, total, percentComplete) ->
+							$('.progress-bar').width(percentComplete + '%')
+	.container
+		.page-header
+			h1 新故事
+		form.form-horizontal(action="/story/create/?#{csrf_qs}", method="post", enctype="multipart/form-data", role="form")
+			.form-group
+				label.control-label.col-sm-2.input-lg(for="storyName") 标题
+				.col-sm-10
+					input#storyName.form-control.input-lg(name="storyName", placeholder="标题")
+			.form-group
+				label.control-label.col-sm-2.input-lg(for="audioFile") 录音
+				.col-sm-10
+					input#storyName.form-control.input-lg(type="file", name="audioFile", placeholder="音频文件")
+					span.help-block 仅支持MP3格式
+			.form-group
+				.col-sm-10.col-sm-offset-2
+					.progress.progress-striped.active.hidden
+						.progress-bar(role="'progressbar", aria-valuenow="0" aria-valuemin="0", aria-valuemax="100", style="width:0%")
+							span.sr-only 0% completed
+			.form-group
+				.col-sm-10.col-sm-offset-2
+					button#submit.btn.btn-default.btn-lg(type="submit") 提交
+		#result.hidden.jumbotron.col-sm-10.col-sm-offset-2
