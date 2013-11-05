@@ -24,9 +24,9 @@ block content
 			h1 新故事
 		form.form-horizontal(action="/story/create/?#{csrf_qs}", method="post", enctype="multipart/form-data", role="form")
 			.form-group
-				label.control-label.col-sm-2.input-lg(for="storyName") 标题
+				label.control-label.col-sm-2.input-lg(for="title") 标题
 				.col-sm-10
-					input#storyName.form-control.input-lg(name="storyName", placeholder="标题")
+					input#storyName.form-control.input-lg(name="title", placeholder="标题")
 			.form-group
 				label.control-label.col-sm-2.input-lg(for="audioFile") 录音
 				.col-sm-10

@@ -12,6 +12,7 @@
     "connect-assets": "*",
     "coffee-script": "*",
     "multiparty": "*",
-    "mongoose": "*"
+    "mongoose": "*",
+    "uid2": "*"
   }
 }
