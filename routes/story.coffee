@@ -11,16 +11,16 @@ exports.new = (req, res) ->
 
 exports.create = (req, res) ->
 	form = new multiparty.Form {uploadDir : config.tmpPath, autoFiles: true}
-	console.log "form created"
 	form.parse req, (err, fields, files) ->
-		console.log err
-		return res.json {error:err} if err
-		console.log files
+		return res.json {error:err} if err?
+		return res.json {error: 'no file attached'} unless files.audioFile?
 		destPath = path.join config.filePath, "audio", util.generateFilename()
 		fs.renameSync files.audioFile[0].path, destPath
 		story = new Story {title: fields.title}
-		# story.save()
-		res.send "ok"
-
+		story.save (err) ->
+			return res.send "ok" unless err?
+			fs.unlinkSync destPath
+			res.json error: require('util').inspect err.errors
+			
 exports.show = (req, res) ->
 	res.render "story/show"

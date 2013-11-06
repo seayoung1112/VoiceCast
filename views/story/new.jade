@@ -13,7 +13,10 @@ block content
 					$('#submit').prop('disabled', true)
 					$(form).ajaxSubmit
 						success: (res, statusText, xhr, $form) ->
-							$('#result').removeClass('hidden').prepend "<div class='alert alert-success'>文件 #{res} 成功上传!</div"
+							$('#result').removeClass 'hidden'
+							suchtml = "<div class='alert alert-success'>文件 #{res} 成功上传!</div"
+							failhtml = "<div class='alert alert-danger'>#{res.error}</div"
+							$('#result').prepend(if res.error? then failhtml else suchtml)
 							$('.progress').addClass('hidden')
 							$('#submit').prop('disabled', false)
 							$('.progress-bar').width('0%')
