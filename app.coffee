@@ -34,7 +34,6 @@ app.use express.favicon()
 app.use express.logger("dev")
 app.use express.json()
 app.use express.urlencoded()
-app.use express.methodOverride()
 app.use express.cookieParser("asdgdgsewb233ssdf")
 app.use express.session()
 app.use express.csrf()
@@ -51,7 +50,9 @@ app.use express.errorHandler()  if "development" is app.get("env")
 app.get "/", routes.index
 app.get "/story/new", story.new
 app.post "/story/create", story.create
+app.get "/story/list", story.list
 app.get "/story/show", story.show
+app.post "/story/delete/:id", story.delete
 
 http.createServer(app).listen app.get("port"), ->
   console.log "Express server listening on port " + app.get("port")

@@ -1,0 +1,35 @@
+extends ../layout
+
+block meta
+	:coffeescript
+		$ ->
+			$('.delete-story').click ->
+				$.post $(@).attr('href'), (res) =>
+					$(@).closest("tr").remove()
+				false
+
+block content
+	.container
+		nav.navbar.navbar-default(role="navigation") 
+			ul.nav.navbar-nav
+				li
+					a(href="/story/new") 新建
+		table.table.table-striped
+			thead
+				tr
+					th 发布者
+					th 标题
+					th 文件
+					th 创建时间
+					th 操作
+			tbody
+				- each story in stories
+					tr
+						th= story.author
+						th= story.title
+						th
+							audio(controls=true)
+								source(src=story.audio.uri) 
+						th= story.createAt
+						th
+							a(href="delete/#{story._id}?#{csrf_qs}", class="delete-story") 删除

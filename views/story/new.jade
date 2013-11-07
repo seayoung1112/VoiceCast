@@ -8,13 +8,22 @@ block content
 	:coffeescript
 		$ ->
 			$('form').validate
+				rules:
+					title:
+						required: true
+					audioFile:
+						required: true
+						extension: "mp3"
+				onfocusout: (element) ->
+					$(element).valid()
 				submitHandler: (form) ->
 					$('.progress').removeClass('hidden')
 					$('#submit').prop('disabled', true)
 					$(form).ajaxSubmit
+						resetForm: true
 						success: (res, statusText, xhr, $form) ->
 							$('#result').removeClass 'hidden'
-							suchtml = "<div class='alert alert-success'>文件 #{res} 成功上传!</div"
+							suchtml = "<div class='alert alert-success'>新建故事#{res}成功!</div"
 							failhtml = "<div class='alert alert-danger'>#{res.error}</div"
 							$('#result').prepend(if res.error? then failhtml else suchtml)
 							$('.progress').addClass('hidden')
@@ -43,4 +52,6 @@ block content
 			.form-group
 				.col-sm-10.col-sm-offset-2
 					button#submit.btn.btn-default.btn-lg(type="submit") 提交
+					a.btn.btn-default.btn-lg.invisible
+					a.btn.btn-default.btn-lg(href="/story/list") 返回
 		#result.hidden.jumbotron.col-sm-10.col-sm-offset-2
