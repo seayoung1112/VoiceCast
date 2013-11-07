@@ -51,7 +51,7 @@ app.get "/", routes.index
 app.get "/story/new", story.new
 app.post "/story/create", story.create
 app.get "/story/list", story.list
-app.get "/story/show", story.show
+app.get "/story/show/:id", story.show
 app.post "/story/delete/:id", story.delete
 
 http.createServer(app).listen app.get("port"), ->

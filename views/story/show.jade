@@ -7,24 +7,22 @@ block content
 	:coffeescript
 		$ ->
 			player = 
-				new CirclePlayer "#jquery_jplayer_1",
-				{m4a: "/assets/test.mp3"},
-				{cssSelectorAncestor: "#cp_container_1",
+				new CirclePlayer "#jquery_jplayer",
+				{m4a: $('.player').data "uri"},
+				{cssSelectorAncestor: "#cp_container",
 				canplay: ->
-					$('#jquery_jplayer_1').jPlayer "play"
+					$('#jquery_jplayer').jPlayer "play"
 				}
 	.container
 		.story_bookmark
-			img(src="/assets/images/1.jpg")
+			img(src="/assets/images/defaultAuthor.jpg")
 			.introduction
 				.author 杨老师
 				.title 三只小猪
-			.player 
-				#jquery_jplayer_1.cp-jplayer
-
-				#cp_container_1.cp-container
+			.player(data-uri = story.audio.uri) 
+				#jquery_jplayer.cp-jplayer
+				#cp_container.cp-container
 					.cp-buffer-holder 
-
 						.cp-buffer-1
 						.cp-buffer-2
 					.cp-progress-holder

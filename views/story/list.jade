@@ -26,7 +26,8 @@ block content
 				- each story in stories
 					tr
 						th= story.author
-						th= story.title
+						th
+							a(href = '/story/show/#{story._id}')= story.title
 						th
 							audio(controls=true)
 								source(src=story.audio.uri) 

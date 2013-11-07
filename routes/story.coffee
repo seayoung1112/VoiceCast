@@ -23,7 +23,7 @@ exports.create = (req, res) ->
 			path: destPath
 		}
 		story.save (err) ->
-			return res.send story.title unless err?
+			return res.json story unless err?
 			fs.unlinkSync destPath
 			res.json error: require('util').inspect err.errors
 
@@ -32,7 +32,8 @@ exports.list = (req, res) ->
 		res.render "story/list", stories:stories
 			
 exports.show = (req, res) ->
-	res.render "story/show"
+	Story.findById req.params.id, (err, story) ->
+		res.render "story/show", story : story
 
 exports.delete = (req, res) ->
 	console.log req.params.id

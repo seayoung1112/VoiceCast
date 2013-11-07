@@ -14,8 +14,7 @@ block content
 					audioFile:
 						required: true
 						extension: "mp3"
-				onfocusout: (element) ->
-					$(element).valid()
+
 				submitHandler: (form) ->
 					$('.progress').removeClass('hidden')
 					$('#submit').prop('disabled', true)
@@ -23,7 +22,7 @@ block content
 						resetForm: true
 						success: (res, statusText, xhr, $form) ->
 							$('#result').removeClass 'hidden'
-							suchtml = "<div class='alert alert-success'>新建故事#{res}成功!</div"
+							suchtml = "<div class='alert alert-success'>新建故事#{res.title}成功! <a href='/story/show/#{res._id}'>链接</a></div"
 							failhtml = "<div class='alert alert-danger'>#{res.error}</div"
 							$('#result').prepend(if res.error? then failhtml else suchtml)
 							$('.progress').addClass('hidden')
