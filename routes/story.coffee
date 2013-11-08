@@ -5,6 +5,7 @@ path = require 'path'
 config = require '../config'
 mongoose = require 'mongoose'
 Story = mongoose.model 'Story'
+sysUtil = require('util')
 
 exports.new = (req, res) ->
 	res.render "story/new"
@@ -12,7 +13,7 @@ exports.new = (req, res) ->
 exports.create = (req, res) ->
 	form = new multiparty.Form uploadDir : config.tmpPath, autoFiles: true
 	form.parse req, (err, fields, files) ->
-		return res.json {error:err[0].Error} if err?
+		return res.json {error: sysUtil.inspect err} if err?
 		return res.json {error: 'no file attached'} unless files.audioFile?
 		randomFilename = util.generateFilename()
 		destPath = path.join config.filePath, "audio", randomFilename
@@ -24,7 +25,7 @@ exports.create = (req, res) ->
 		story.save (err) ->
 			return res.json story unless err?
 			fs.unlinkSync destPath
-			res.json error: require('util').inspect err.errors
+			res.json error: sysUtil.inspect err.errors
 
 exports.list = (req, res) ->
 	Story.find {}, (err, stories) ->
