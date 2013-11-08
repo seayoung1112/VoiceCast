@@ -15,26 +15,27 @@ block content
 					$('#jquery_jplayer').jPlayer "play"
 				}
 	.container
-		.story_bookmark
-			img(src="/assets/images/defaultAuthor.jpg")
-			.introduction
-				.author= story.author
-				.title= story.title
-			.player(data-uri = story.audio.uri) 
-				#jquery_jplayer.cp-jplayer
-				#cp_container.cp-container
-					.cp-buffer-holder 
-						.cp-buffer-1
-						.cp-buffer-2
-					.cp-progress-holder
-						.cp-progress-1
-						.cp-progress-2
-					.cp-circle-control
-					ul.cp-controls
-						li
-							span.cp-play.outer(href="#", tabindex="1")
-								span.inner play
-						li 
-							span.cp-pause.outer(href="#", style="display:none", tabindex="1")
-								span.inner pause
-			.clearfix
+		.row		
+			.story_bookmark
+				img(src="/assets/images/defaultAuthor.jpg")
+				.introduction.col-sm-7
+					.author= story.author
+					.title= story.title
+				.player(data-uri = story.audio.uri) 
+					#jquery_jplayer.cp-jplayer
+					#cp_container.cp-container
+						.cp-buffer-holder 
+							.cp-buffer-1
+							.cp-buffer-2
+						.cp-progress-holder
+							.cp-progress-1
+							.cp-progress-2
+						.cp-circle-control
+						ul.cp-controls
+							li
+								span.cp-play.outer(href="#", tabindex="1")
+									span.inner play
+							li 
+								span.cp-pause.outer(href="#", style="display:none", tabindex="1")
+									span.inner pause
+				.clearfix
