@@ -1,7 +1,6 @@
 //=require jquery.transform
 //=require jquery.grab
 //=require mod.csstransforms.min
-//=require jplayer
 
 var CirclePlayer = function(jPlayerSelector, media, options) {
   var self = this,
