@@ -17,8 +17,8 @@ block content
 		.story_bookmark
 			img(src="/assets/images/defaultAuthor.jpg")
 			.introduction
-				.author 杨老师
-				.title 三只小猪
+				.author= story.author
+				.title= story.title
 			.player(data-uri = story.audio.uri) 
 				#jquery_jplayer.cp-jplayer
 				#cp_container.cp-container

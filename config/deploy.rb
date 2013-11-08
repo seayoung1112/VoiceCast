@@ -1,8 +1,9 @@
 set :application, 'voicecast'
 set :repo_url, 'git@github.com/seayoung1112/VoiceCast.git' 
+set :branch, 'master'
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
-set :deploy_to, '/var/www/my_app'
+set :deploy_to, '/var/www/'
 # set :scm, :git
 
 # set :format, :pretty

@@ -10,10 +10,9 @@ exports.new = (req, res) ->
 	res.render "story/new"
 
 exports.create = (req, res) ->
-	form = new multiparty.Form {uploadDir : config.tmpPath, autoFiles: true}
+	form = new multiparty.Form uploadDir : config.tmpPath, autoFiles: true
 	form.parse req, (err, fields, files) ->
-		console.log files.audioFile
-		return res.json {error:err} if err?
+		return res.json {error:err[0].Error} if err?
 		return res.json {error: 'no file attached'} unless files.audioFile?
 		randomFilename = util.generateFilename()
 		destPath = path.join config.filePath, "audio", randomFilename
@@ -36,6 +35,9 @@ exports.show = (req, res) ->
 		res.render "story/show", story : story
 
 exports.delete = (req, res) ->
-	console.log req.params.id
 	Story.remove _id : req.params.id , (err) ->
-		if err? then res.json {err:err} else res.send "ok"
+		if err?
+			res.json {err:err}
+		else
+			fs.unlink destPath, (err) ->
+				if err? then res.send "ok" else res.json {err:err}
