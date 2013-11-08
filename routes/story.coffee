@@ -13,7 +13,7 @@ exports.new = (req, res) ->
 exports.create = (req, res) ->
 	form = new multiparty.Form uploadDir : config.tmpPath, autoFiles: true
 	form.parse req, (err, fields, files) ->
-		config.log err
+		console.log err
 		return res.json {error: sysUtil.inspect err} if err?
 		return res.json {error: 'no file attached'} unless files.audioFile?
 		randomFilename = util.generateFilename()
